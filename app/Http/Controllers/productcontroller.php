@@ -1,15 +1,19 @@
 <?php
 
-Skuspace App\Http\Controllers;
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
+        // this Method will show product Index
+
     public function index(){
 
     }
+        // this Method will show product Create
+
     public function create(){
         return view('products.create');
     }
@@ -20,7 +24,7 @@ class ProductController extends Controller
             'Price' => 'required|numeric',
 
         ];
-        $validator =Validator::make($request->all(),$rules);
+        $validator =Validator::make($request ->all(),$rules);
 
         if($validator->fails()){
             return redirect()->route('products.create')->withInput()->withErrors($validator);
@@ -28,13 +32,17 @@ class ProductController extends Controller
         }
 
     }
+        // this Method will show product Edit
+
     public function edit(){
         
     }
+        // this Method will show product Update
+
     public function update(){
         
     }
-    // this methood will show product delete
+    // this Method will show product delete
     public function destroy(){
         
     }

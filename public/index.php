@@ -53,3 +53,14 @@ $response = $kernel->handle(
 )->send();
 
 $kernel->terminate($request, $response);
+
+
+// Updated code
+// $_REQUEST("create.route");
+// $view('create.view');
+// $response('create.blade.php');
+// $route("products.create");
+// $_POST('create.edit');
+// $view('create.update');
+// $view('create.destroy');
+// $_SERVER('create.delete');
