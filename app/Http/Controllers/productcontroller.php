@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+Skuspace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
-class productcontroller extends Controller
+class ProductController extends Controller
 {
     public function index(){
 
@@ -12,8 +13,20 @@ class productcontroller extends Controller
     public function create(){
         return view('products.create');
     }
-    public function store(){
-        
+    public function store(Request $request){
+        $rules[
+            'name' => 'required|min:5',
+            'Sku' => 'required|min:3',
+            'Price' => 'required|numeric',
+
+        ];
+        $validator =Validator::make($request->all(),$rules);
+
+        if($validator->fails()){
+            return redirect()->route('products.create')->withInput()->withErrors($validator);
+
+        }
+
     }
     public function edit(){
         
