@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Http\Controllers\ProductController;
+namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,7 +18,7 @@ class ProductController extends Controller
         return view('products.create');
     }
     public function store(Request $request){
-        $rules[
+        $rules=[
             'name' => 'required|min:5',
             'Sku' => 'required|min:3',
             'Price' => 'required|numeric',

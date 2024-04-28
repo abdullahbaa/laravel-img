@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('product', function (Blueprint $table) {
             $table->id();
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('sku');
             $table->double('price',10,2);
             $table->text('description') ->nullable();
-            $table->string('image')->nullable();
+            $table->string('image') ->nullable();
             $table->timestamps();
         });
     }

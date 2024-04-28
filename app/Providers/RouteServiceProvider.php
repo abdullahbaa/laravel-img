@@ -1,5 +1,7 @@
 <?php
 
+//protected $namespace ='App\\Http\\Controllers';
+
 namespace App\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;
