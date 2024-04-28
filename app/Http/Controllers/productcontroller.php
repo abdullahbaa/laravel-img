@@ -10,7 +10,7 @@ class ProductController extends Controller
         // this Method will show product Index
 
     public function index(){
-
+        return view('products.list');
     }
         // this Method will show product Create
 
@@ -30,6 +30,15 @@ class ProductController extends Controller
             return redirect()->route('products.create')->withInput()->withErrors($validator);
 
         }
+        // here we will insert product in Database
+        $product= new Product();
+        $product->name =$request-> name;
+        $product->Sku = $request->Sku;
+        $product->Price = $request->Price;
+        $product->Description = $request->Description;
+        $product-> save();
+
+        return redirect()->route('products.index') ->with('success','product added successfully');
 
     }
         // this Method will show product Edit

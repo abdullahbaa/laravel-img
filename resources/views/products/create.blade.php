@@ -24,7 +24,7 @@
             <div class="card-body">
               <div class="mb-3 text-center">
                 <label class="form-label h4">Name</label>
-                <input type="text" class=" @error('name') is-Invalid @enderror form-control form-control-lg form-control" 
+                <input value="{{old('name')}}" type="text" class=" @error('name') is-Invalid @enderror form-control form-control-lg form-control" 
                 placeholder="Name"
                 name="name">
                 @error('name')
@@ -33,7 +33,7 @@
               </div>
               <div class="mb-3 text-center">
                 <label class="form-label h4">Sku</label>
-                <input type="text" class=" @error('name') is-Invalid @enderror  form-control form-control-lg" 
+                <input value="{{old('Sku')}}"  type="text" class=" @error('Sku') is-Invalid @enderror  form-control form-control-lg" 
                 placeholder="Sku"
                 name="Sku">
                 @error('Sku')
@@ -42,7 +42,7 @@
               </div>
               <div class="mb-3 text-center">
                 <label class="form-label h4">Price</label>
-                <input type="text" class="@error('name') is-Invalid @enderror   form-control form-control-lg" 
+                <input value="{{old('Price')}}"  type="text" class="@error('Price') is-Invalid @enderror   form-control form-control-lg" 
                 placeholder="Price"
                 name="Price">
                 @error('Price')
@@ -69,6 +69,5 @@
       </div>
     </div>
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   </body>
 </html>
