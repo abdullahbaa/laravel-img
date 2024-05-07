@@ -13,13 +13,19 @@
 
     </div>
     <div class="container">
+      <div class="row justify-content-center mt-4">
+        <div class="col-md-10 d-flex justify-content-end">
+          <a href="{{route('products.index')}}" class="btn btn-dark">Back</a>
+       </div>
+       </div>
+
       <div class="row d-flex justify-content-center">
         <div class="co-md-10">
           <div class="card border-0 shadow-lg my-3">
             <div class="card-header bg-dark text-white text-center">
               <h3>Create Product</h3>
             </div>
-            <form action="{{route('products.store')}}" method="post">
+            <form enctype="multipart/from-data" action="{{route('products.store')}}" method="post">
               @csrf
             <div class="card-body">
               <div class="mb-3 text-center">

@@ -2,6 +2,7 @@
 
 
 namespace App\Http\Controllers;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -10,7 +11,10 @@ class ProductController extends Controller
         // this Method will show product Index
 
     public function index(){
-        return view('products.list');
+        $products=product::orderBy('created_at','DESC')->get();
+        return view('products.list',[
+        'Products' =>$products
+        ]);
     }
         // this Method will show product Create
 
@@ -24,6 +28,12 @@ class ProductController extends Controller
             'Price' => 'required|numeric',
 
         ];
+
+        if($request->$image !=""){
+            $rules['image'] ='image';
+
+        }
+
         $validator =Validator::make($request ->all(),$rules);
 
         if($validator->fails()){
@@ -31,14 +41,35 @@ class ProductController extends Controller
 
         }
         // here we will insert product in Database
-        $product= new Product();
-        $product->name =$request-> name;
-        $product->Sku = $request->Sku;
-        $product->Price = $request->Price;
-        $product->Description = $request->Description;
-        $product-> save();
+        $products= new Product();
+        $products->name =$request-> name;
+        $products->Sku = $request->Sku;
+        $products->Price = $request->Price;
+        $products->Description = $requests->Description;
+        $products-> save();
 
-        return redirect()->route('products.index') ->with('success','product added successfully');
+
+        // Execute the full codes.
+        if($request->image != "")
+        {
+            // Here we will store Image
+
+        $image=$request->image;
+        $ext = $image->getClientOriginalExtension();
+        // Unique image name
+        $imageName= time().'.'.$ext; 
+
+        // Save images to products directory
+        $image->move(public_path('uploads/products'),$imageName);
+        
+        // save image name in database
+        $product->image=$imageName;
+        $product->save();
+        }
+
+
+
+        return redirect()->route('products.index') ->with('success','product added successfully.');
 
     }
         // this Method will show product Edit
