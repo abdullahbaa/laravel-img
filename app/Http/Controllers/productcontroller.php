@@ -74,16 +74,78 @@ class ProductController extends Controller
     }
         // this Method will show product Edit
 
-    public function edit(){
+    public function edit($id){
+        $product = product::findOrFail($id);
+        return view('products.edit',[
+            'product' =>$product
+        ]);
         
     }
         // this Method will show product Update
 
-    public function update(){
+    public function update($id,Request $request){
+
+        $product = product::findOrFail($id);
+
+        $rules=[
+            'name' => 'required|min:5',
+            'Sku' => 'required|min:3',
+            'Price' => 'required|numeric',
+
+        ];
+
+        if($request->$image !=""){
+            $rules['image'] ='image';
+
+        }
+
+        $validator =Validator::make($request ->all(),$rules);
+
+        if($validator->fails()){
+            return redirect()->route('products.edit',$product->id)->withInput()->withErrors($validator);
+
+        }
+        // Here we will Update product
+       
+        $products->name =$request-> name;
+        $products->Sku = $request->Sku;
+        $products->Price = $request->Price;
+        $products->Description = $requests->Description;
+        $products-> save();
+
+
+        // Execute the full codes.
+        if($request->image != "")
+        {
+            // delete old image
+            File::delete(public_path('uploads/products/'.$product->image));
+            // Here we will store Image
+
+        $image=$request->image;
+        $ext = $image->getClientOriginalExtension();
+        // Unique image name
+        $imageName= time().'.'.$ext; 
+
+        // Save images to products directory
+        $image->move(public_path('uploads/products'),$imageName);
         
+        // save image name in database
+        $product->image=$imageName;
+        $product->save();
+        }
+
+
+
+        return redirect()->route('products.index') ->with('success','product updated successfully.');
     }
-    // this Method will show product delete
-    public function destroy(){
+    // This Method will show product delete
+    public function destroy($id){
+        $product = product::findOrFail($id);
         
+        // delete image
+        File::delete(public_path('uploads/products/'.$product->image));
+        $product->delete();
+        return redirect()->route('products.index') ->with('success','product deleted successfully.');
+
     }
 }
